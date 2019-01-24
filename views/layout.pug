@@ -1,0 +1,34 @@
+extends index.pug
+
+block content
+  p
+    a.button(href='/books/new') Create New Book
+  form.search-form(action="")
+    label(for="search-category") Search by:
+    select#search-category(name="search_by")
+      option(value="all") All
+      option(value="title") Title
+      option(value="author") Author
+      option(value="genre") Genre
+      option(value="year") Year
+    input(type="text", name="searchText", placeholder="Enter your search here")
+    input(type='submit', value='Search')
+
+  table
+    thead
+      tr
+        th Title
+        th Author
+        th Genre
+        th Year
+    tbody
+      each book in data.bookData
+        tr
+          td
+            a(href=`/books/${book.id}`) #{book.title}
+          td #{book.author}
+          td #{book.genre}
+          td #{book.year}
+  ul.pagination
+    li
+      a(href="") 1

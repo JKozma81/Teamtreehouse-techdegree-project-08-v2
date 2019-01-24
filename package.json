@@ -1,0 +1,31 @@
+{
+	"name": "teamtreehouse-techdegree-project-08",
+	"version": "1.0.0",
+	"description": "SQL Library Managger for TeamTreehouse Full Stack JavaScript Techdegree",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/JKozma81/Teamtreehouse-techdegree-project-08.git"
+	},
+	"author": "Kozma János",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/JKozma81/Teamtreehouse-techdegree-project-08/issues"
+	},
+	"homepage": "https://github.com/JKozma81/Teamtreehouse-techdegree-project-08#readme",
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4",
+		"pug": "^2.0.3",
+		"sequelize": "^4.42.0",
+		"sequelize-cli": "^5.4.0",
+		"sqlite3": "^4.0.6"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.9"
+	}
+}
