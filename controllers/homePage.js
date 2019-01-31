@@ -1,9 +1,11 @@
 const Book = require('../models/book');
+const Sequelize = require('sequelize');
 
 const state = {
 	menuTitle: '',
 	bookData: {},
-	paginationLinks: 1
+	paginationLinks: 1,
+	searching: false
 };
 
 // Render the core content for the home page
@@ -16,6 +18,7 @@ exports.getHomePageLayout = (req, res, next) => {
 	Book.findAll()
 		.then((books) => {
 			state.bookData = books;
+			state.searching = false;
 			state.menuTitle = 'Books';
 			res.locals.data = state;
 			res.render('layout');
@@ -106,4 +109,47 @@ exports.deletingBook = (req, res, next) => {
 		.catch((err) => {
 			console.error(err);
 		});
+};
+
+// Searching in the Database
+exports.searchFor = (req, res, next) => {
+	const Op = Sequelize.Op;
+	const text = req.query.searchText || res.redirect('/books');
+
+	if (isNaN(Number(text))) {	
+		Book.findAll(
+			{attributes: ['id',
+										[Sequelize.fn('LOWER', Sequelize.col('title')), 'loverCase_title'],
+										'title',
+										[Sequelize.fn('LOWER', Sequelize.col('author')), 'loverCase_author'],
+										'author', 
+										[Sequelize.fn('LOWER', Sequelize.col('genre')), 'loverCase_genre'],
+										'genre',
+										'year'],
+				where: {[Op.or]: [{title: {[Op.like]: `%${text}%`}},
+													{author: {[Op.like]: `%${text}%`}},
+													{genre: {[Op.like]: `%${text}%`}}]}
+			}).then((books) => {
+				state.bookData = books;
+				state.searching = true;
+				state.menuTitle = 'Books';
+				res.locals.data = state;
+				res.render('layout');
+			}).catch(err => console.error(err));
+	} else {
+		Book.findAll(
+			{attributes: ['id',
+										'title',
+										'author', 
+										'genre',
+										'year'],
+				where: {year: {[Op.eq]: Number(text)}
+			}}).then((books) => {
+				state.bookData = books;
+				state.menuTitle = 'Books';
+				state.searching = true;
+				res.locals.data = state;
+				res.render('layout');
+			}).catch(err => console.error(err));
+	}
 };

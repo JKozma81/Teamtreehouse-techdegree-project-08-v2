@@ -3,17 +3,12 @@ extends index.pug
 block content
   p
     a.button(href='/books/new') Create New Book
-  form.search-form(action="")
-    label(for="search-category") Search by:
-    select#search-category(name="search_by")
-      option(value="all") All
-      option(value="title") Title
-      option(value="author") Author
-      option(value="genre") Genre
-      option(value="year") Year
-    input(type="text", name="searchText", placeholder="Enter your search here")
+  form.search-form(method='get', action= '/books/search')
+    label(for="searchFor") Search for:
+    input(type="text", name="searchText", placeholder="Enter your search here...", id="searchFor")
     input(type='submit', value='Search')
-
+    if data.searching
+      a.button(href='/books') Home
   table
     thead
       tr
