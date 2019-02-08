@@ -5,7 +5,9 @@ const state = {
 	menuTitle: '',
 	bookData: {},
 	paginationLinks: 1,
-	searching: false
+	searching: false,
+	isTitleMissing: false,
+	isAuthorMissing: false
 };
 
 // Render the core content for the home page
@@ -31,7 +33,6 @@ exports.getHomePageLayout = (req, res, next) => {
 // Render the core layout for the new book page
 exports.getNewBookPage = (req, res, next) => {
 	state.menuTitle = 'New Book';
-	state.errorData = [];
 	state.bookData = {};
 	isTitleMissing = false;
 	isAuthorMissing = false;
@@ -69,6 +70,15 @@ exports.addNewBook = (req, res, next) => {
 			res.redirect('/books');
 		})
 		.catch((err) => {
+			err.errors.forEach((error) => {
+				console.log(error.path)
+				state.isTitleMissing = error.path === 'title' ? true : false;
+				state.isAuthorMissing = error.path === 'author' ? true : false;
+			})
+			console.log('A', state.isAuthorMissing);
+			console.log('T', state.isTitleMissing);
+			// console.log(err.path)
+			// console.log(err.name)
 			console.error(err.message);
 		});
 };
