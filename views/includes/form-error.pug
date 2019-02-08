@@ -1,4 +1,7 @@
-h2.error Oooops!
-ul.error
-  li Title is required!
-  li Author is required!
+if data.isTitleMissing || data.isAuthorMissing
+  h2.error Oooops!
+  ul.error
+    if data.isTitleMissing
+      li Title is required!
+    if data.isAuthorMissing
+      li Author is required!

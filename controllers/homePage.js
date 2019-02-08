@@ -71,15 +71,19 @@ exports.addNewBook = (req, res, next) => {
 		})
 		.catch((err) => {
 			err.errors.forEach((error) => {
-				console.log(error.path)
-				state.isTitleMissing = error.path === 'title' ? true : false;
-				state.isAuthorMissing = error.path === 'author' ? true : false;
+				state.isTitleMissing = error.path === 'title' && true || state.isTitleMissing;
+				state.isAuthorMissing = error.path === 'author' && true || state.isAuthorMissing;
 			})
-			console.log('A', state.isAuthorMissing);
-			console.log('T', state.isTitleMissing);
-			// console.log(err.path)
-			// console.log(err.name)
+
+			state.bookData = {
+				title,
+				author,
+				genre,
+				year
+			}
+			res.locals.data = state;
 			console.error(err.message);
+			res.render('new-book');
 		});
 };
 

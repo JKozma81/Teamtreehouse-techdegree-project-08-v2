@@ -7,16 +7,16 @@ block content
 
     p
       label(for='title') Title
-      input#title(name='title', type='text', value= data.menuTitle !== 'New Book' ? `${data.bookData.title}` : '')
+      input#title(name='title', type='text', value= data.isTitleMissing || data.isAuthorMissing ? `${data.bookData.title}` : '')
     p
       label(for='author') Author
-      input#author(name='author', type='text', value= data.menuTitle !== 'New Book' ? `${data.bookData.author}` : '')
+      input#author(name='author', type='text', value= data.isTitleMissing || data.isAuthorMissing ? `${data.bookData.author}` : '')
     p
       label(for='genre') Genre
-      input#genre(name='genre', type='text', value= data.menuTitle !== 'New Book' ? `${data.bookData.genre}` : '')
+      input#genre(name='genre', type='text', value= (data.isTitleMissing || data.isAuthorMissing) && `${data.bookData.genre}` || '')
     p
       label(for='year') Year
-      input#year(name='year', type='text', value= data.menuTitle !== 'New Book' ? `${data.bookData.year}` : '')
+      input#year(name='year', type='text', value= data.isTitleMissing || data.isAuthorMissing ? `${data.bookData.year}` : '')
     p
       input(type='submit', value= 'Create New Book')
     p
