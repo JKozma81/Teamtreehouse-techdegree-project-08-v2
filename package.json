@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/JKozma81/Teamtreehouse-techdegree-project-08#readme",
 	"dependencies": {
 		"body-parser": "^1.18.3",
-		"express": "^4.16.4",
+		"express": "^4.17.3",
 		"pug": "^2.0.3",
 		"sequelize": "^5.15.1",
 		"sequelize-cli": "^5.4.0",
